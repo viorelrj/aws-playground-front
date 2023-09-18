@@ -10,9 +10,6 @@ phases:
   build:
     commands:
       - npm run build
-
-artifacts:
-  files:
-    - '**/*'
-  base-directory: 'build'
-  discard-paths: yes
+  post_build:
+    commands:
+      - aws s3 sync build/ s3://${BUCKET_NAME}/
